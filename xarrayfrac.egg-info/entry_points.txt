@@ -1,3 +1,0 @@
-[xarray.backends]
-xarray_frac = xarray_frac.frac_backend:DynamicMandelbrotEntrypoint
-

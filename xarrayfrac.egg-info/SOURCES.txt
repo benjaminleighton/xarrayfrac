@@ -1,6 +1,0 @@
-setup.py
-xarrayfrac.egg-info/PKG-INFO
-xarrayfrac.egg-info/SOURCES.txt
-xarrayfrac.egg-info/dependency_links.txt
-xarrayfrac.egg-info/entry_points.txt
-xarrayfrac.egg-info/top_level.txt
