@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='xarrayfrac',
-    version='0.0.2',
+    version='0.0.3',
     url='https://github.com/benjaminleighton/xarrayfrac',
     author='Ben Leighton',
     author_email='benplei@gmail.com',
