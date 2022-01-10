@@ -1,3 +1,4 @@
+![pypi version](https://badge.fury.io/py/xarrayfrac.svg)
 # xarrayfrac
 
 A dynamic generative mandelbrot custom backend for xarray
