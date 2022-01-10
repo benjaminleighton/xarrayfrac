@@ -3,6 +3,10 @@
 A dynamic generative mandelbrot custom backend for xarray
 
 ```
+pip install xarray_frac
+```
+
+```
 import numpy as np
 import xarray as xr
 from matplotlib import pyplot as plt
@@ -14,6 +18,7 @@ sampled = ds.frac.isel(x=slice(0, 100000, 100), y=slice(0, 100000, 100))
 # compute and display
 plt.imshow(sampled)
 ```
+![mandelbrot fractal in xarray](https://raw.githubusercontent.com/benjaminleighton/xarray_frac/main/frac1.png)
 
 ```
 # request a 1 trillion pixel lazy xarray fractal
@@ -23,3 +28,5 @@ window = ds.where((ds.x > -0.1) & (ds.x < 0.1), drop=True).where((ds.y > 0.9) & 
 # plot every tenth pixel of the window
 plt.imshow(window.frac[::10, ::10])
 ```
+
+![zoomed mandelbrot fractal in xarray](https://raw.githubusercontent.com/benjaminleighton/xarray_frac/main/frac2.png)
