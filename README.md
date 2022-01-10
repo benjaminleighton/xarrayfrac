@@ -1,9 +1,9 @@
-# xarray_frac
+# xarrayfrac
 
 A dynamic generative mandelbrot custom backend for xarray
 
 ```
-pip install xarray_frac
+pip install xarrayfrac
 ```
 
 ```
