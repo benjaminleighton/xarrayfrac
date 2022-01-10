@@ -14,6 +14,6 @@ setuptools.setup(
           'numpy',
       ],
     entry_points={
-        "xarray.backends": ["xarray_frac=xarray_frac.frac_backend:DynamicMandelbrotEntrypoint"],
+        "xarray.backends": ["xarrayfrac=xarrayfrac.frac_backend:DynamicMandelbrotEntrypoint"],
     },
 )
