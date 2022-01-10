@@ -25,7 +25,7 @@ plt.imshow(sampled)
 ds = xr.open_dataset(None, engine="xarray_frac", resolution=100000, chunks={"x": 2000, "y": 2000})
 # zoom 
 window = ds.where((ds.x > -0.1) & (ds.x < 0.1), drop=True).where((ds.y > 0.9) & (ds.y < 1.0), drop=True)
-# plot every tenth pixel of the window
+# plot every hundredth pixel of the window
 plt.imshow(window.frac[::10, ::10])
 ```
 
