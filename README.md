@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 
 # request a 1 trillion pixel lazy xarray fractal
 ds = xr.open_dataset(None, engine="xarray_frac", resolution=100000, chunks={"x": 2000, "y": 2000})
-# sample every hundredth pixel
+# sample 1 in every 10000 pixels
 sampled = ds.frac.isel(x=slice(0, 100000, 100), y=slice(0, 100000, 100))
 # compute and display
 plt.imshow(sampled)
