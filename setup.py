@@ -1,4 +1,8 @@
 import setuptools 
+# read the contents of your README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name='xarrayfrac',
@@ -8,6 +12,7 @@ setuptools.setup(
     author_email='benplei@gmail.com',
     description='mandelbrot dynamically generated xarray backend',
     packages=['xarrayfrac'],
+    long_description = long_description
     long_description_content_type="text/markdown",
     install_requires=[
           'xarray',
