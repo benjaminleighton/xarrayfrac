@@ -12,7 +12,7 @@ setuptools.setup(
     author_email='benplei@gmail.com',
     description='mandelbrot dynamically generated xarray backend',
     packages=['xarrayfrac'],
-    long_description = long_description
+    long_description = long_description,
     long_description_content_type="text/markdown",
     install_requires=[
           'xarray',
