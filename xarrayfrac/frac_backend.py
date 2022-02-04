@@ -1,4 +1,3 @@
-import threading
 import logging
 import xarray as xr
 import numpy as np
@@ -12,7 +11,6 @@ class DynamicMandelbrotEntrypoint(BackendEntrypoint):
     custom xarray entrypoint / aka engine for generating
     mandelbrot fractals
     '''
-    lock = threading.Lock()
     open_dataset_parameters = ['resolution']
 
     def open_dataset(
@@ -27,7 +25,7 @@ class DynamicMandelbrotEntrypoint(BackendEntrypoint):
         filename_or_obj: should be None, dask seems to require it
         drop_variables: should be None seems to be required 
         '''
-        backend_array = MandelbrotBackendArray((resolution, resolution), np.float32, DynamicMandelbrotEntrypoint.lock)
+        backend_array = MandelbrotBackendArray((resolution, resolution), np.float32)
         data = indexing.LazilyIndexedArray(backend_array)
         vars = xr.Variable(("x", "y", ), data)
         ds = xr.Dataset({"frac" : vars}, coords = {"x": backend_array.x, "y": backend_array.y})
@@ -46,11 +44,9 @@ class MandelbrotBackendArray(BackendArray):
         self,
         shape,
         dtype,
-        lock,
     ):
         self.shape = shape
         self.dtype = dtype
-        self.lock = lock
         self.x = np.linspace(-2, 2, num=shape[0])
         self.y = np.linspace(-2, 2, num=shape[1])
         
@@ -66,19 +62,16 @@ class MandelbrotBackendArray(BackendArray):
 
     def _raw_indexing_method(self, key: tuple) -> np.typing.ArrayLike:
         logging.debug(key)
-        # probably this is thread safe anyhow and this might make things
-        # slower
-        with self.lock:
-            x = self.x[key[1]]
-            y = self.y[key[0]]
-            xx, yy = np.meshgrid(x, y)
-            frac = self._mandel(xx, yy)
-            if isinstance(key[0], slice) or isinstance(key[1], slice):
-                return frac
-            try:
-                return frac.item()
-            except ValueError:
-                return frac
+        x = self.x[key[1]]
+        y = self.y[key[0]]
+        xx, yy = np.meshgrid(x, y)
+        frac = self._mandel(xx, yy)
+        if isinstance(key[0], slice) or isinstance(key[1], slice):
+            return frac
+        try:
+            return frac.item()
+        except ValueError:
+            return frac
 
     def _mandel(self, xx, yy):
         # code inspired by https://www.learnpythonwithrune.org/numpy-compute-mandelbrot-set-by-vectorization/
