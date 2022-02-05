@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name='xarrayfrac',
-    version='0.0.5',
+    version='0.0.6',
     url='https://github.com/benjaminleighton/xarrayfrac',
     author='Ben Leighton',
     author_email='benplei@gmail.com',

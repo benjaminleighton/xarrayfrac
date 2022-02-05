@@ -25,7 +25,7 @@ plt.imshow(sampled)
 # request a 10 billion pixel lazy xarray fractal
 ds = xr.open_dataset(None, engine="xarrayfrac", resolution=100000, chunks={"x": 2000, "y": 2000})
 # zoom 
-window = ds.where((ds.x > -0.1) & (ds.x < 0.1), drop=True).where((ds.y > 0.9) & (ds.y < 1.0), drop=True)
+window = ds.sel(x=slice(-0.1, 0.1), y=slice(0.9, 1.0))
 # plot every hundredth pixel of the window
 plt.imshow(window.frac[::10, ::10])
 ```

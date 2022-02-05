@@ -25,7 +25,7 @@ class DynamicMandelbrotEntrypoint(BackendEntrypoint):
         filename_or_obj: should be None, dask seems to require it
         drop_variables: should be None seems to be required 
         '''
-        backend_array = MandelbrotBackendArray((resolution, resolution), np.float32)
+        backend_array = MandelbrotBackendArray((resolution, resolution), np.float64)
         data = indexing.LazilyIndexedArray(backend_array)
         vars = xr.Variable(("x", "y", ), data)
         ds = xr.Dataset({"frac" : vars}, coords = {"x": backend_array.x, "y": backend_array.y})
@@ -78,13 +78,13 @@ class MandelbrotBackendArray(BackendArray):
         # start by defining a constant value
         c = yy + xx * 1j 
         # prepare z with the shape of the area to be computed make it a complex number
-        z = np.zeros(c.shape, dtype=np.complex128)
+        z = np.zeros(c.shape, dtype=np.complex256)
         # store the number of iterations it takes for z to reach a threshold ("approach infinity")
         div_time = np.zeros(z.shape, dtype=int)
         # record whether the threshold has been reached or not at each location
         m = np.full(c.shape, True, dtype=bool)
         # set the number of iterations to run to see if the threshold is reached
-        max_iterations = 32
+        max_iterations = 128
         for i in range(max_iterations):
             # mandelbrot formula calculate vectorized where at still valid locations less than
             # threshold indicated in by m
